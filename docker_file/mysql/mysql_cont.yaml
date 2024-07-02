@@ -1,18 +1,9 @@
 version: '3.9'
-services: 
+services:
   mysql:
-    image: mariadb:10.8.3
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
+    image: mysql
+    port:
+      - 8083:8084
     environment:
-      MYSQL_ROOT_PASSWORD: root
-    ports: 
-      - 3306:3306
-  adminer: 
-    image: adminer
-    restart: always
-    ports: 
-      - 8080:8080
-
-# tutorial
-# https://www.fadocodecamp.com/posts/running-a-mysql-database-with-docker-compose-a-beginners-guide
+      - MYSQL_ROOT_USERNAME: ruhulamin
+      - MYSQL_DATABASE: testdb2
