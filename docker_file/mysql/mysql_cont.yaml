@@ -13,3 +13,6 @@ services:
     restart: always
     ports: 
       - 8080:8080
+
+# tutorial
+# https://www.fadocodecamp.com/posts/running-a-mysql-database-with-docker-compose-a-beginners-guide
