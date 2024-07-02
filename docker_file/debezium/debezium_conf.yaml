@@ -27,7 +27,7 @@ services:
       MYSQL_USER: mysqluser
       MYSQL_PASSWORD: mysqlpw
 
-  connect:
+  debezium_connect:
     image: quay.io/debezium/connect:2.5
     container_name: connect
     ports:
