@@ -2,8 +2,8 @@ version: '3.9'
 services:
   mysql:
     image: mysql
-    port:
+    ports:
       - 8083:8084
     environment:
-      - MYSQL_ROOT_USERNAME: ruhulamin
-      - MYSQL_DATABASE: testdb2
+      MYSQL_ROOT_PASSWORD: ruhulamin
+      MYSQL_DATABASE: testdb2
