@@ -1,0 +1,13 @@
+version: '1.0.0'
+services:
+  img_test_case_orders:
+    container_name: case_orders_test_image
+    environment: 
+      - MAINTAINER=ruhul@ba-systems.com
+      - DB_HOST=LOCALHOST
+      - DB_USER=RUHUL
+      - DB_PASS=1234
+      - DB_NAME=TEST_DB
+    build: 
+      dockerfile: case_order_docker_file
+    
