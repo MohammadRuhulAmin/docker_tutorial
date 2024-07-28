@@ -1,0 +1,17 @@
+version: '1.0.0'
+services:
+  mysql_con:
+    container_name: mysql_node_connection
+    environment: 
+      - MAINTAINER=ruhul@ba-systems.com
+      - DB_HOST=19.3
+      - DB_USER=etl_f
+      - DB_PASS=g9Xq
+      - DB_NAME=muta
+      - DB_PORT=3306
+    ports:
+      - 3000:3000
+    volumes:
+      - /home/ruhul/image_testing_process/data_volume:/var/opt/
+    build:
+      dockerfile: mncon_dockerfile
