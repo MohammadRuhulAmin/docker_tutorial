@@ -3,15 +3,15 @@ services:
   mysql_con:
     container_name: mysql_node_connection
     environment: 
-      - MAINTAINER=ruhul@ba-systems.com
-      - DB_HOST=19.3
-      - DB_USER=etl_f
-      - DB_PASS=g9Xq
-      - DB_NAME=muta
+      - MAINTAINER=ru.com
+      - DB_HOST=192..3
+      - DB_USER=etl_munif
+      - DB_PASS=g9^5
+      - DB_NAME=muisal
       - DB_PORT=3306
     ports:
       - 3000:3000
     volumes:
-      - /home/ruhul/image_testing_process/data_volume:/var/opt/
+      - ./myfile.txt:/var/opt/myfile.txt
     build:
       dockerfile: mncon_dockerfile
