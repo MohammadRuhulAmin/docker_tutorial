@@ -1,17 +1,51 @@
 version: '1.0.0'
 services:
-  mysql_con:
-    container_name: mysql_node_connection
-    environment: 
-      - MAINTAINER=ru.com
-      - DB_HOST=192..3
-      - DB_USER=etl_munif
-      - DB_PASS=g9^5
-      - DB_NAME=muisal
-      - DB_PORT=3306
+  mutation_barisal_case_orders:
+    container_name: case_orders_cont
+    environment:
+      - MYSQL_HOST=193
+      - MYSQL_USER=etl_mnif
+      - MYSQL_PASSWORD=g95
+      - MYSQL_DATABASE=mutat
+      - MYSQL_PORT=3306
+      - MYSQL_TABLE=c
     ports:
       - 3000:3000
     volumes:
-      - ./myfile.txt:/var/opt/myfile.txt
+      - ./case_orders/process.txt:/var/opt/process.txt
     build:
-      dockerfile: mncon_dockerfile
+      context: ./case_orders
+      dockerfile: barisal_co_dockerfile
+  mutation_barisal_case_proposal_comments:
+    container_name: case_proposal_comments_cont
+    environment:
+      - MYSQL_HOST=1
+      - MYSQL_USER=etnif
+      - MYSQL_PASSWORD=g^5
+      - MYSQL_DATABASE=mutal
+      - MYSQL_PORT=3306
+      - MYSQL_TABLE=case_proposal_comments_reference_img
+    ports:
+      - 3001:3001
+    volumes:
+      - ./case_proposal_comments/process.txt:/var/opt/process.txt
+    build:
+      context: ./case_proposal_comments
+      dockerfile: barisal_cpc_dockerfile
+  mutation_barisal_case_proposals:
+    container_name: case_pront
+    environment:
+      - MYSQL_HOST=13
+      - MYSQL_USER=etl_mu
+      - MYSQL_PASSWORD=g95
+      - MYSQL_DATABASE=mutat
+      - MYSQL_PORT=3306
+      - MYSQL_TABLE=case_propoimg
+    ports:
+      - 3002:3002
+    volumes:
+      - ./case_proposals/process.txt:/var/opt/process.txt
+    build:
+      context: ./case_proposals
+      dockerfile: barisal_cp_dockerfile
+    
