@@ -1,9 +1,15 @@
-version: '3.9'
+version: '1.0.0'
 services:
-  mysql:
-    image: mysql
+  relational_db_mysql:
+    image: mysql:latest
+    environment: 
+      - MYSQL_HOST=127.0.0.1
+      - MYSQL_PASSWORD=ruhul
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=employee
+      - MYSQL_ROOT_PASSWORD=ruhul
     ports:
-      - 8083:8084
-    environment:
-      MYSQL_ROOT_PASSWORD: ruhulamin
-      MYSQL_DATABASE: testdb2
+      - 3000:3000
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+

@@ -1,12 +1,12 @@
 version: '1.0.0'
 services:
-  mutation_barisal_case_orders:
+  mutation_chottogram_case_orders:
     container_name: case_orders_cont
     environment:
       - MYSQL_HOST=192.168.9.3
       - MYSQL_USER=etl_mutation_nif
       - MYSQL_PASSWORD=g9Xqe82407^5
-      - MYSQL_DATABASE=mutation_barisal
+      - MYSQL_DATABASE=mutation_chottogram
       - MYSQL_PORT=3306
       - MYSQL_TABLE=case_orders_reference_img
     ports:
@@ -15,30 +15,14 @@ services:
       - ./case_orders/process.txt:/var/opt/process.txt
     build:
       context: ./case_orders
-      dockerfile: barisal_co_dockerfile
-  mutation_barisal_case_proposal_comments:
-    container_name: case_proposal_comments_cont
-    environment:
-      - MYSQL_HOST=192.168.9.3
-      - MYSQL_USER=etl_mutation_nif
-      - MYSQL_PASSWORD=g9Xqe82407^5
-      - MYSQL_DATABASE=mutation_barisal
-      - MYSQL_PORT=3306
-      - MYSQL_TABLE=case_proposal_comments_reference_img
-    ports:
-      - 3001:3001
-    volumes:
-      - ./case_proposal_comments/process.txt:/var/opt/process.txt
-    build:
-      context: ./case_proposal_comments
-      dockerfile: barisal_cpc_dockerfile
-  mutation_barisal_case_proposals:
+      dockerfile: chottogram_co_dockerfile
+  mutation_chottogram_case_proposals:
     container_name: case_proposals_cont
     environment:
       - MYSQL_HOST=192.168.9.3
       - MYSQL_USER=etl_mutation_nif
       - MYSQL_PASSWORD=g9Xqe82407^5
-      - MYSQL_DATABASE=mutation_barisal
+      - MYSQL_DATABASE=mutation_chottogram
       - MYSQL_PORT=3306
       - MYSQL_TABLE=case_proposals_reference_img
     ports:
@@ -47,14 +31,14 @@ services:
       - ./case_proposals/process.txt:/var/opt/process.txt
     build:
       context: ./case_proposals
-      dockerfile: barisal_cp_dockerfile
-  mutation_barisal_khotian_comments:
+      dockerfile: chottogram_cp_dockerfile
+  mutation_chottogram_khotian_comments:
     container_name: khothian_comments_cont
     environment:
       - MYSQL_HOST=192.168.9.3
       - MYSQL_USER=etl_mutation_nif
       - MYSQL_PASSWORD=g9Xqe82407^5
-      - MYSQL_DATABASE=mutation_barisal
+      - MYSQL_DATABASE=mutation_chottogram
       - MYSQL_PORT=3306
       - MYSQL_TABLE=khotian_comments_reference_img
     ports:
@@ -63,4 +47,21 @@ services:
       - ./khotian_comments/process.txt:/var/opt/process.txt
     build:
       context: ./khotian_comments
-      dockerfile: barisal_kc_dockerfile
+      dockerfile: chottogram_kc_dockerfile
+  mutation_chottogram_case_proposal_comments:
+    container_name: case_proposal_comments_cont
+    environment:
+      - MYSQL_HOST=192.168.9.3
+      - MYSQL_USER=etl_mutation_nif
+      - MYSQL_PASSWORD=g9Xqe82407^5
+      - MYSQL_DATABASE=mutation_chottogram
+      - MYSQL_PORT=3306
+      - MYSQL_TABLE=case_proposal_comments_reference_img
+    ports:
+      - 3001:3001
+    volumes:
+      - ./case_proposal_comments/process.txt:/var/opt/process.txt
+    build:
+      context: ./case_proposal_comments
+      dockerfile: chottogram_cpc_dockerfile
+  
