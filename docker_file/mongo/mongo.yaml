@@ -1,20 +1,26 @@
-version: '3.1'
+version: "1.0.1"
 services: 
-  mongodb:
-    image:mongo
+  mongo_db: 
+    container_name: mongo-dev
+    image: mongo:latest
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_DATABASE=employee
+      - MONGO_INITDB_ROOT_PASSWORD=pass
     ports:
       - 27017:27017
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: superscript
-  
+    volumes:
+      - ./mongodb_data:/data/db
   mongo-express:
+    container_name: mongo-express
     image: mongo-express
-    ports: 
-      - 8081:8081
+    depends_on:
+      - mongo_db
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
-      ME_CONFIG_MONGODB_ADMINPASSWORD: superscript
-      ME_CONFIG_MONGODB_SERVER: mongodb
-    dependson: 
-      - "mongodb"
+      - ME_CONFIG_MONGODB_SERVER=mongo-dev
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=pass
+    ports:
+      - 8081:8081
+    volumes:
+      - ./mongodb_data:/data/db
