@@ -24,3 +24,6 @@ services:
       - 8081:8081
     volumes:
       - ./mongodb_data:/data/db
+
+
+source : https://stackoverflow.com/questions/47901561/how-to-run-mongodb-and-mongo-express-with-docker-compose
