@@ -1,0 +1,6 @@
+version: '1.0.0'
+services: 
+  app:
+    image: ubuntu:latest
+    command: ["sh","-c","echo '\ncontainer getting updated\n'  &&  apt-get update  && echo '\nupdate done.....'  "]
+    

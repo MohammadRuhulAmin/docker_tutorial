@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  app:
+    image: python:3.9-slim
+    working_dir: /py_script
+    volumes:
+      - .:/py_script
+    command: ["python", "./script.py"]
+    entrypoint: ["sh", "-c", "echo 'python script is running!' && exec python ./script.py"]
