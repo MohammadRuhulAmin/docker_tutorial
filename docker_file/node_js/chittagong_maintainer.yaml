@@ -4,7 +4,7 @@ services:
     container_name: case_orders_cont
     environment:
       - MYSQL_HOST=
-      - MYSQL_USER=etl_mutation_nif
+      - MYSQL_USER=etl_mut
       - MYSQL_PASSWORD=g9X5
       - MYSQL_DATABASE=mutation_chottogram
       - MYSQL_PORT=3306

@@ -1,0 +1,66 @@
+version: '1.0.0'
+services:
+  mutation_dhaka_case_orders:
+    container_name: case_orders_cont_dhaka
+    environment:
+      - MYSQL_HOST=1922
+      - MYSQL_USER=etl_mutif
+      - MYSQL_PASSWORD=g9^5
+      - MYSQL_DATABASE=mutation_dhaka
+      - MYSQL_PORT=3306
+      - MYSQL_TABLE=case_orders_reference_img
+    ports:
+      - 3011:3011
+    volumes:
+      - ./case_orders/process.txt:/var/opt/process.txt
+    build:
+      context: ./case_orders
+      dockerfile: dhaka_co_dockerfile
+  mutation_dhaka_case_proposal_comments:
+    container_name: case_proposal_comments_cont_dhaka
+    environment:
+      - MYSQL_HOST=19.2
+      - MYSQL_USER=etl_mun_nif
+      - MYSQL_PASSWORD=g907^5
+      - MYSQL_DATABASE=mutahaka
+      - MYSQL_PORT=3306
+      - MYSQL_TABLE=case_proposal_comments_reference_img
+    ports:
+      - 3012:3012
+    volumes:
+      - ./case_proposal_comments/process.txt:/var/opt/process.txt
+    build:
+      context: ./case_proposal_comments
+      dockerfile: dhaka_cpc_dockerfile
+  mutation_dhaka_case_proposals:
+    container_name: case_proposals_cont_dhaka
+    environment:
+      - MYSQL_HOST=1.2
+      - MYSQL_USER=etl_mut_nif
+      - MYSQL_PASSWORD=g9X^5
+      - MYSQL_DATABASE=mutahaka
+      - MYSQL_PORT=3306
+      - MYSQL_TABLE=case_proposals_reference_img
+    ports:
+      - 3013:3013
+    volumes:
+      - ./case_proposals/process.txt:/var/opt/process.txt
+    build:
+      context: ./case_proposals
+      dockerfile: dhaka_cp_dockerfile
+  mutation_dhaka_khotian_comments:
+    container_name: khotian_comments_cont_dhaka
+    environment:
+      - MYSQL_HOST=192.2
+      - MYSQL_USER=etl_mut
+      - MYSQL_PASSWORD=g9X^5
+      - MYSQL_DATABASE=mutatka
+      - MYSQL_PORT=3306
+      - MYSQL_TABLE=khotian_comments_reference_img
+    ports:
+      - 3014:3014
+    volumes:
+      - ./khotian_comments/process.txt:/var/opt/process.txt
+    build:
+      context: ./khotian_comments
+      dockerfile: dhaka_kc_dockerfile
