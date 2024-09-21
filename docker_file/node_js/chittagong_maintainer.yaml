@@ -3,9 +3,9 @@ services:
   mutation_chottogram_case_orders:
     container_name: case_orders_cont
     environment:
-      - MYSQL_HOST=192.168.9.3
+      - MYSQL_HOST=
       - MYSQL_USER=etl_mutation_nif
-      - MYSQL_PASSWORD=g9Xqe82407^5
+      - MYSQL_PASSWORD=g9X5
       - MYSQL_DATABASE=mutation_chottogram
       - MYSQL_PORT=3306
       - MYSQL_TABLE=case_orders_reference_img
@@ -19,9 +19,9 @@ services:
   mutation_chottogram_case_proposals:
     container_name: case_proposals_cont
     environment:
-      - MYSQL_HOST=192.168.9.3
+      - MYSQL_HOST=
       - MYSQL_USER=etl_mutation_nif
-      - MYSQL_PASSWORD=g9Xqe82407^5
+      - MYSQL_PASSWORD=g97^5
       - MYSQL_DATABASE=mutation_chottogram
       - MYSQL_PORT=3306
       - MYSQL_TABLE=case_proposals_reference_img
@@ -35,9 +35,9 @@ services:
   mutation_chottogram_khotian_comments:
     container_name: khothian_comments_cont
     environment:
-      - MYSQL_HOST=192.168.9.3
-      - MYSQL_USER=etl_mutation_nif
-      - MYSQL_PASSWORD=g9Xqe82407^5
+      - MYSQL_HOST=
+      - MYSQL_USER=etl
+      - MYSQL_PASSWORD=g2407^5
       - MYSQL_DATABASE=mutation_chottogram
       - MYSQL_PORT=3306
       - MYSQL_TABLE=khotian_comments_reference_img
@@ -51,9 +51,9 @@ services:
   mutation_chottogram_case_proposal_comments:
     container_name: case_proposal_comments_cont
     environment:
-      - MYSQL_HOST=192.168.9.3
-      - MYSQL_USER=etl_mutation_nif
-      - MYSQL_PASSWORD=g9Xqe82407^5
+      - MYSQL_HOST=
+      - MYSQL_USER=etl_mut
+      - MYSQL_PASSWORD=g
       - MYSQL_DATABASE=mutation_chottogram
       - MYSQL_PORT=3306
       - MYSQL_TABLE=case_proposal_comments_reference_img
