@@ -1,0 +1,86 @@
+version: 1.0.0
+services:
+  zookeeper1:
+    image: confluentinc/cp-zookeeper:5.5.3
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_SERVERS: "zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888"
+    volumes:
+      - ./zkafka_data/zookeeper1/zk-data:/var/lib/zookeeper/data
+      - ./zkafka_data/zookeeper1/zk-txn-logs:/var/lib/zookeeper/log
+    ports:
+      - 2181:2181
+  zookeeper2:
+    image: confluentinc/cp-zookeeper:5.5.3
+    environment:
+      ZOOKEEPER_SERVER_ID: 2
+      ZOOKEEPER_CLIENT_PORT: 2182
+      ZOOKEEPER_SERVERS: "zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888"
+    volumes:
+      - ./zkafka_data/zookeeper2/zk-data:/var/lib/zookeeper/data
+      - ./zkafka_data/zookeeper2/zk-txn-logs:/var/lib/zookeeper/log
+
+  zookeeper3:
+    image: confluentinc/cp-zookeeper:5.5.3
+    environment:
+      ZOOKEEPER_SERVER_ID: 3
+      ZOOKEEPER_CLIENT_PORT: 2183
+      ZOOKEEPER_SERVERS: "zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888"
+    volumes:
+      - ./zkafka_data/zookeeper3/zk-data:/var/lib/zookeeper/data
+      - ./zkafka_data/zookeeper3/zk-txn-logs:/var/lib/zookeeper/log
+  kafka1:
+    image: confluentinc/cp-enterprise-kafka:5.5.3
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181"
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1:9092
+      KAFKA_BROKER_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_JMX_PORT: 9991
+    ports:
+      - 9092:9092
+    volumes:
+      - ./zkafka_data/kafka1:/var/lib/kafka/data
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    restart: "no"
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: "kafka1:9092"
+    depends_on:
+      - "kafka1"
+
+  connect:
+    image: quay.io/debezium/connect:1.9
+    ports:
+      - 8083:8083
+    links:
+      - kafka1
+    environment:
+      BOOTSTRAP_SERVERS: "kafka1:9092"
+      GROUP_ID: "1"
+      CONFIG_STORAGE_TOPIC: "my_connect_configs"
+      OFFSET_STORAGE_TOPIC: "my_connect_offsets"
+      STATUS_STORAGE_TOPIC: "my_connect_statuses"
+      CONNECTOR_CLASS: "io.debezium.connector.mysql.MySqlConnector"
+      # MySQL connection details
+      DATABASE_HOSTNAME: "172.18.0.1" # database host IP address
+      DATABASE_PORT: "3306"
+      DATABASE_USER: "user"
+      DATABASE_PASSWORD: "P@ssW0rd"
+      DATABASE_SERVER_ID: "1"
+      DATABASE_SERVER_NAME: "RuhulAmin"
+      DATABASE_HISTORY_KAFKA_TOPIC: "schema-changes.cdc_log"
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:5.5.3
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: "zookeeper1:2181"
+      SCHEMA_REGISTRY_HOST_NAME: "schema-registry"
+      SCHEMA_REGISTRY_LISTENERS: "http://schema-registry:8081,http://172.18.0.1:8081"
+    ports:
+      - 8081:8081
+    depends_on: [zookeeper1, kafka1]
