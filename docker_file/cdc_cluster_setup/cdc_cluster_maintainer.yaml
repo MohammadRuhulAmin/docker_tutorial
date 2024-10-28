@@ -5,7 +5,7 @@ services:
     environment:
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_SERVERS: "zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888"
+      ZOOKEEPER_SERVERS: "zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888;zookeeper4:2888:3888;zookeeper5:2888:3888"
     volumes:
       - ./zkafka_data/zookeeper1/zk-data:/var/lib/zookeeper/data
       - ./zkafka_data/zookeeper1/zk-txn-logs:/var/lib/zookeeper/log
@@ -16,7 +16,7 @@ services:
     environment:
       ZOOKEEPER_SERVER_ID: 2
       ZOOKEEPER_CLIENT_PORT: 2182
-      ZOOKEEPER_SERVERS: "zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888"
+      ZOOKEEPER_SERVERS: "zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888;zookeeper4:2888:3888;zookeeper5:2888:3888"
     volumes:
       - ./zkafka_data/zookeeper2/zk-data:/var/lib/zookeeper/data
       - ./zkafka_data/zookeeper2/zk-txn-logs:/var/lib/zookeeper/log
@@ -26,10 +26,29 @@ services:
     environment:
       ZOOKEEPER_SERVER_ID: 3
       ZOOKEEPER_CLIENT_PORT: 2183
-      ZOOKEEPER_SERVERS: "zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888"
+      ZOOKEEPER_SERVERS: "zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888;zookeeper4:2888:3888;zookeeper5:2888:3888"
     volumes:
       - ./zkafka_data/zookeeper3/zk-data:/var/lib/zookeeper/data
       - ./zkafka_data/zookeeper3/zk-txn-logs:/var/lib/zookeeper/log
+  zookeeper4:
+    image: confluentinc/cp-zookeeper:5.5.3
+    environment:
+      ZOOKEEPER_SERVER_ID: 4
+      ZOOKEEPER_CLIENT_PORT: 2184
+      ZOOKEEPER_SERVERS: "zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888;zookeeper4:2888:3888;zookeeper5:2888:3888"
+    volumes:
+      - ./zkafka_data/zookeeper4/zk-data:/var/lib/zookeeper/data
+      - ./zkafka_data/zookeeper4/zk-txn-logs:/var/lib/zookeeper/log
+  zookeeper5:
+    image: confluentinc/cp-zookeeper:5.5.3
+    environment:
+      ZOOKEEPER_SERVER_ID: 5
+      ZOOKEEPER_CLIENT_PORT: 2185
+      ZOOKEEPER_SERVERS: "zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888;zookeeper4:2888:3888;zookeeper5:2888:3888"
+    volumes:
+      - ./zkafka_data/zookeeper5/zk-data:/var/lib/zookeeper/data
+      - ./zkafka_data/zookeeper5/zk-txn-logs:/var/lib/zookeeper/log
+      
   kafka1:
     image: confluentinc/cp-enterprise-kafka:5.5.3
     environment:
