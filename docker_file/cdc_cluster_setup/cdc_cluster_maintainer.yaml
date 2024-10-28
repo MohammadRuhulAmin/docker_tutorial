@@ -48,19 +48,68 @@ services:
     volumes:
       - ./zkafka_data/zookeeper5/zk-data:/var/lib/zookeeper/data
       - ./zkafka_data/zookeeper5/zk-txn-logs:/var/lib/zookeeper/log
-      
+
   kafka1:
     image: confluentinc/cp-enterprise-kafka:5.5.3
     environment:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181"
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1:9092
       KAFKA_BROKER_ID: 1
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
       KAFKA_JMX_PORT: 9991
     ports:
       - 9092:9092
     volumes:
       - ./zkafka_data/kafka1:/var/lib/kafka/data
+  kafka2:
+    image: confluentinc/cp-enterprise-kafka:5.5.3
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181"
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka2:9093
+      KAFKA_BROKER_ID: 2
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_JMX_PORT: 9992
+    ports:
+      - 9093:9093
+    volumes:
+      - ./zkafka_data/kafka2:/var/lib/kafka/data
+  kafka3:
+    image: confluentinc/cp-enterprise-kafka:5.5.3
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181"
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka3:9094
+      KAFKA_BROKER_ID: 3
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_JMX_PORT: 9993
+    ports:
+      - 9094:9094
+    volumes:
+      - ./zkafka_data/kafka3:/var/lib/kafka/data
+  kafka4:
+    image: confluentinc/cp-enterprise-kafka:5.5.3
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181"
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka4:9095
+      KAFKA_BROKER_ID: 4
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_JMX_PORT: 9994
+    ports:
+      - 9095:9095
+    volumes:
+      - ./zkafka_data/kafka4:/var/lib/kafka/data
+
+  kafka5:
+    image: confluentinc/cp-enterprise-kafka:5.5.3
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181"
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka5:9096
+      KAFKA_BROKER_ID: 5
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_JMX_PORT: 9995
+    ports:
+      - 9096:9096
+    volumes:
+      - ./zkafka_data/kafka5:/var/lib/kafka/data
 
   kafdrop:
     image: obsidiandynamics/kafdrop
@@ -68,9 +117,13 @@ services:
     ports:
       - "9000:9000"
     environment:
-      KAFKA_BROKERCONNECT: "kafka1:9092"
+      KAFKA_BROKERCONNECT: "kafka1:9092,kafka2:9093,kafka3:9094,kafka4:9095,kafka5:9096"
     depends_on:
       - "kafka1"
+      - "kafka2"
+      - "kafka3"
+      - "kafka4"
+      - "kafka5"
 
   connect:
     image: quay.io/debezium/connect:1.9
@@ -78,8 +131,12 @@ services:
       - 8083:8083
     links:
       - kafka1
+      - kafka2
+      - kafka3
+      - kafka4
+      - kafka5
     environment:
-      BOOTSTRAP_SERVERS: "kafka1:9092"
+      BOOTSTRAP_SERVERS: "kafka1:9092,kafka2:9093,kafka3:9094,kafka4:9095,kafka5:9096"
       GROUP_ID: "1"
       CONFIG_STORAGE_TOPIC: "my_connect_configs"
       OFFSET_STORAGE_TOPIC: "my_connect_offsets"
@@ -102,4 +159,4 @@ services:
       SCHEMA_REGISTRY_LISTENERS: "http://schema-registry:8081,http://172.18.0.1:8081"
     ports:
       - 8081:8081
-    depends_on: [zookeeper1, kafka1]
+    depends_on: [zookeeper1, kafka1,kafka2,kafka3,kafka4,kafka5]
